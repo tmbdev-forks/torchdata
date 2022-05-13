@@ -26,6 +26,7 @@ from torchdata.datapipes.iter import (
     CSVDictParser,
     CSVParser,
     Decompressor,
+    FileCache,
     FileLister,
     FileOpener,
     HashChecker,
@@ -34,7 +35,6 @@ from torchdata.datapipes.iter import (
     IoPathSaver,
     IterableWrapper,
     JsonParser,
-    PipeOpener,
     RarArchiveLoader,
     Saver,
     TarArchiveLoader,
@@ -780,32 +780,20 @@ class TestDataPipeLocalIO(expecttest.TestCase):
         assert items[9][".bin"] == "bin9"
 
 
-    def test_popener_local_file_cat(self) -> None:
+    def test_filecache(self) -> None:
         nfiles = 100
         testdata = b"hello, world"
         dest = os.path.join(self.temp_dir.name, "testdata")
         with open(dest, "wb") as stream:
             stream.write(testdata)
         stage1 = IterableWrapper([dest] * nfiles)
-        stage2 = PipeOpener(stage1)
+        stage2 = FileOpener(stage1, mode="b")
+        stage3 = FileCache(stage2, cachedir=os.path.join(self.temp_dir.name, "_cache"))
         count = 0
-        for path, stream in stage2:
+        for path, stream in stage3:
             data = stream.read()
             count += 1
             assert data == testdata
-        assert count == nfiles
-
-
-    def test_popener_pipe_url(self) -> None:
-        nfiles = 100
-        url = "pipe:echo hello world"
-        stage1 = IterableWrapper([url] * nfiles)
-        stage2 = PipeOpener(stage1)
-        count = 0
-        for path, stream in stage2:
-            data = stream.read()
-            count += 1
-            assert data == b"hello world\n"
         assert count == nfiles
 
 
