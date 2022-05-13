@@ -5,17 +5,8 @@
 # LICENSE file in the root directory of this source tree.
 
 import os
-import pickle
 import random
-import re
-import shutil
-import subprocess
-import sys
-import urllib.parse
-from fnmatch import fnmatch
-from typing import Any, Dict, Iterator, List, Tuple, Union
-
-from torch.utils.data.datapipes.utils.common import StreamWrapper
+from typing import Any, Dict, Iterator
 
 from torchdata.datapipes import functional_datapipe
 from torchdata.datapipes.iter import IterDataPipe
