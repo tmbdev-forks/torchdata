@@ -111,12 +111,26 @@ from torchdata.datapipes.iter.util.tfrecordloader import (
 from torchdata.datapipes.iter.util.unzipper import UnZipperIterDataPipe as UnZipper
 from torchdata.datapipes.iter.util.webdataset import (
     WebDatasetIterDataPipe as WebDataset,
+)
+from torchdata.datapipes.iter.util.pipeopener import (
     PipeOpenerIterDataPipe as PipeOpener,
+)
+from torchdata.datapipes.iter.util.extractkeys import (
     ExtractKeysIterDataPipe as ExtractKeys,
+)
+from torchdata.datapipes.iter.util.filedecoder import (
     FileDecoderIterDataPipe as FileDecoder,
+)
+from torchdata.datapipes.iter.util.renamekeys import (
     RenameKeysIterDataPipe as RenameKeys,
+)
+from torchdata.datapipes.iter.util.shardexpander import (
     ShardExpanderIterDataPipe as ShardExpander,
+)
+from torchdata.datapipes.iter.util.incshuffle import (
     IncrementalShufflerIterDataPipe as IncrementalShuffler,
+)
+from torchdata.datapipes.iter.util.filecache import (
     FileCacheIterDataPipe as FileCache,
 )
 from torchdata.datapipes.iter.util.xzfileloader import (
